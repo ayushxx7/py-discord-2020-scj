@@ -1,6 +1,10 @@
 # Summer Code Jam 2020: Qualifier
 
-ATTEMPTED BY [AYUSH MANDOWARA]
+
+## ATTEMPTED BY
+
+- [AYUSH MANDOWARA](#qualifying-for-the-code-jam)
+
 To qualify for the upcoming Summer Code Jam, you'll have to complete a qualifier assignment. For the assignment, you'll have to write an `Article` class that could be used to represent an article published on a website.
 
 Please read the instructions carefully and submit your solution before the deadline using the [sign-up form](https://forms.gle/RpGCrLXyn8U92c156). Also, note that **we've included a test suite** you can use to test your solution before you submit it.
