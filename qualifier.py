@@ -15,7 +15,7 @@ Important notes for submission:
 """
 import datetime
 import typing
-
+import textwrap # for TC#4 (short_introduction)
 
 class ArticleField:
     """The `ArticleField` class for the Advanced Requirements."""
@@ -46,3 +46,25 @@ class Article:
     def __len__(self):
 
         return len(self.content)
+    
+    def short_introduction(self, n_characters):
+
+        return textwrap.wrap(self.content, n_characters)[0]
+    
+    def most_common_words(self, n):
+       
+        from collections import Counter 
+          
+        # split() returns list of all the words in the string 
+        split_it = self.content.split() 
+          
+        # Pass the split_it list to instance of Counter class. 
+        Counter = Counter(split_it) 
+  
+        # most_common() produces k frequently encountered 
+        # input values and their respective counts. 
+        most_occur = dict(Counter.most_common(n))
+
+
+        return most_occur
+
