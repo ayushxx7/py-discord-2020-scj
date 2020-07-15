@@ -18,6 +18,7 @@ import typing
 import textwrap # for TC#4 (short_introduction)
 from collections import Counter # for TC#5 (most n words)
 import re # for TC#5 (most n words)
+import itertools # for intermediate tc#1
 
 class ArticleField:
     """The `ArticleField` class for the Advanced Requirements."""
@@ -29,11 +30,14 @@ class ArticleField:
 class Article:
     """The `Article` class you need to write for the qualifier."""
 
+    article_id = itertools.count()
     def __init__(self, title: str, author: str, publication_date: datetime.datetime, content: str):
+        self.id = next(Article.article_id)
         self.title = title
         self.author = author
         self.publication_date = publication_date
         self.content = content
+        self.last_edited = None
 
         return None
 
