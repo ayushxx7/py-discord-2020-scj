@@ -16,6 +16,8 @@ Important notes for submission:
 import datetime
 import typing
 import textwrap # for TC#4 (short_introduction)
+from collections import Counter # for TC#5 (most n words)
+import re # for TC#5 (most n words)
 
 class ArticleField:
     """The `ArticleField` class for the Advanced Requirements."""
@@ -53,18 +55,10 @@ class Article:
     
     def most_common_words(self, n):
        
-        from collections import Counter 
-          
-        # split() returns list of all the words in the string 
-        split_it = self.content.split() 
-          
-        # Pass the split_it list to instance of Counter class. 
-        Counter = Counter(split_it) 
-  
-        # most_common() produces k frequently encountered 
-        # input values and their respective counts. 
-        most_occur = dict(Counter.most_common(n))
+        lower_case_content = self.content.lower()
+        split_all_except_lower_alpha = re.split(r'[^a-z]',lower_case_content)
+        remove_empty_from_list = list(filter(None, split_all_except_lower_alpha))
+        most_common_n_words = dict(Counter(remove_empty_from_list).most_common(n))
 
-
-        return most_occur
+        return most_common_n_words
 
