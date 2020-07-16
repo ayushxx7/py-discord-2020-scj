@@ -43,9 +43,7 @@ class Article:
 
     def __repr__(self):
 
-        formatted_datetime = self.publication_date.strftime(
-            "%Y-%m-%dT%H:%M:%S")
-        representation = f"<Article title=\"{self.title}\" author='{self.author}' publication_date='{formatted_datetime}'>"
+        representation = f"<Article title=\"{self.title}\" author='{self.author}' publication_date='{self.publication_date.isoformat()}'>"
 
         return representation
 
