@@ -41,6 +41,26 @@ class Article:
 
         return None
 
+    def update_last_editied(self, p_value):
+        print("update_last_editied:",p_value)
+        # if p_value != self.content: ## confusing.
+        self.last_edited = datetime.datetime.now()
+
+    
+    @property
+    def content(self):
+        # print(self._content)
+        return self._content
+
+    @content.setter
+    def content(self, value):
+        # print("value:",value)
+        self._content = value # the content isn't actually updating.
+        # print("self.content:",self.content)
+        self.update_last_editied(value) # just updating the last edited though.
+
+
+
     def __repr__(self):
 
         representation = f"<Article title=\"{self.title}\" author='{self.author}' publication_date='{self.publication_date.isoformat()}'>"
@@ -63,4 +83,5 @@ class Article:
         most_common_n_words = dict(Counter(remove_empty_from_list).most_common(n))
 
         return most_common_n_words
+
 
