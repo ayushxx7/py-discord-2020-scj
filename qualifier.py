@@ -1,47 +1,36 @@
-"""
-Use this file to write your solution for the Summer Code Jam 2020 Qualifier.
-
-Important notes for submission:
-
-- Do not change the names of the two classes included below. The test suite we
-  will use to test your submission relies on existence these two classes.
-
-- You can leave the `ArticleField` class as-is if you do not wish to tackle the
-  advanced requirements.
-
-- Do not include "debug"-code in your submission. This means that you should
-  remove all debug prints and other debug statements before you submit your
-  solution.
-"""
+#### LIBRARIES ####
 import datetime
 import typing
-import textwrap # for TC#4 (short_introduction)
-from collections import Counter # for TC#5 (most n words)
-import re # for TC#5 (most n words)
-import itertools # for intermediate tc#1
+import textwrap # for TC#104 (short_introduction)
+from collections import Counter # for TC#105 (most common n words)
+import re # for TC#105 (most common n words)
+import itertools # for intermediate tc#201: (article should have unique id)
+####
 
 class ArticleField:
     """The `ArticleField` class for the Advanced Requirements."""
 
+    #TC301: should be able to get and set values of any valid type (including custom types).
     def __init__(self, field_type: typing.Type[typing.Any]):
-        # print("Init:",field_type)
         self.field = field_type()
 
+    #TC302: each object/instance should have separate values.
     def __get__(self, obj, objtype): 
-        # print("Get:", obj, objtype)
         return obj.field
   
+    #TC301: should be able to get and set values of any valid type.
     def __set__(self, obj, value): 
-        # print("Set:", obj, value)
         if isinstance(value, type(self.field)): 
-            # print('value,field_type:',value,self.field)
+            #TC302: each object/instance should have separate values.
             obj.field = value
         else: 
             print(f"Incorrect Type: {type(value)}. Type should be: {type(self.field)} ||| {self.name}")
+            #TC302: wrong assignment should raise type error. 
+            #TC304: type error should have attribute name, expected type, actual type.
             raise TypeError(f"expected an instance of type '{type(self.field).__name__}' for attribute '{self.name}', got '{type(value).__name__}' instead") 
     
+    #TC304: type error should have attribute name, expected type, actual type.
     def __set_name__(self, owner, name):
-        # print('is this invoked? ',name)
         self.name = name
 
 class Article:
@@ -88,12 +77,13 @@ class Article:
     def content(self):
         return self._content
 
+    ### TC202: changing article content should update the last edited time.
     @content.setter
     def content(self, value):
         self._content = value 
         self.last_edited = datetime.datetime.now()
 
-    ### TC203: articles should be sortable by publication date.
     def __lt__(self, other):
+        """TC203: articles should be sortable by publication date."""
         return self.publication_date < other.publication_date
 
