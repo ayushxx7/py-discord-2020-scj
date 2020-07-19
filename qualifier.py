@@ -24,7 +24,21 @@ class ArticleField:
     """The `ArticleField` class for the Advanced Requirements."""
 
     def __init__(self, field_type: typing.Type[typing.Any]):
-        pass
+        # print("Init:",field_type)
+        self.field = field_type()
+
+    def __get__(self, obj, objtype): 
+        # print("Get:", obj, objtype)
+        return self.field
+  
+    def __set__(self, obj, value): 
+        # print("Set:", obj, value)
+        if isinstance(value, type(self.field)): 
+            # print('value,field_type:',value,self.field)
+            self.field = value
+        else: 
+            print(f"Incorrect Type: {type(value)}. Type should be: {type(self.field)}")
+            raise TypeError(f"Incorrect Type: {type(value)}. Type should be: {type(self.field)}") 
 
 
 class Article:
