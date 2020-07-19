@@ -29,17 +29,20 @@ class ArticleField:
 
     def __get__(self, obj, objtype): 
         # print("Get:", obj, objtype)
-        return self.field
+        return obj.field
   
     def __set__(self, obj, value): 
         # print("Set:", obj, value)
         if isinstance(value, type(self.field)): 
             # print('value,field_type:',value,self.field)
-            self.field = value
+            obj.field = value
         else: 
-            print(f"Incorrect Type: {type(value)}. Type should be: {type(self.field)}")
-            raise TypeError(f"Incorrect Type: {type(value)}. Type should be: {type(self.field)}") 
-
+            print(f"Incorrect Type: {type(value)}. Type should be: {type(self.field)} ||| {self.name}")
+            raise TypeError(f"expected an instance of type '{type(self.field).__name__}' for attribute '{self.name}', got '{type(value).__name__}' instead") 
+    
+    def __set_name__(self, owner, name):
+        # print('is this invoked? ',name)
+        self.name = name
 
 class Article:
     """The `Article` class you need to write for the qualifier."""
